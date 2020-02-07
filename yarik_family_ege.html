@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>koduvannya</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<script type="text/javascript">		
+    var person = {
+ name : "vlad",
+ age: 4,
+ family:[
+  {
+   brothers:[
+   {
+    name : "Yarik",
+    age: 2,
+   },
+   {
+    name : "Andrey",
+    age: 1,
+    friends:[
+     {
+      name: 'sssss',
+      age: 33
+     }
+    ]
+   },
+  ],
+  sisters: [],
+  mother: {
+   name : "Katya",
+   age: 15,
+   friends:[
+    {
+     name: 'sssss1',
+     age: 3,
+     friends:[
+      {
+       name: 'Katya',
+       age: 31
+      }
+     ]
+    }
+   ]
+  },
+  father:{
+   name : "Roman",
+   age: 16,
+  }
+  }
+ ]
+};
+
+
+function calc (obj, countArray) {
+ var Obj = Array.isArray(obj);
+ var arr = Obj ? obj : Object.keys(obj)
+ arr.forEach(i => {
+  if(typeof i === 'object') {
+   var nArr= calc(i, countArray);
+   // countArray.push(...nArr);
+   return 
+  }
+  var value = obj[i];
+  var isNum = typeof value === 'number';
+  var isObj = typeof value === 'object';
+  var isArray= Array.isArray(value);
+  if(isNum) {
+   countArray.push(value);
+  }
+
+  if(isObj || isArray){
+   var nArr= calc(value, countArray);
+   // countArray.push(...nArr)
+  }
+ });
+ return countArray
+}
+var arrSumAge=(calc(person, []));
+var sumAge=arrSumAge.reduce(function(sum, current){return sum+current},0);
+
+console.log(arrSumAge);
+console.log(sumAge);
+
+	</script>
+
+</body>
+</html>
